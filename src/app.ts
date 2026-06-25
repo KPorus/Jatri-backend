@@ -1,0 +1,43 @@
+import express, { Application } from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
+import { env } from './config/env';
+import routes from './routes';
+import { notFound, errorHandler } from './middleware/error';
+import { stripeWebhook } from './controllers/stripe.controller';
+
+export function createApp(): Application {
+  const app = express();
+
+  app.use(helmet());
+  app.use(
+    cors({
+      origin: env.clientUrl,
+      credentials: true,
+    })
+  );
+  app.use(cookieParser());
+
+  // Stripe webhook must receive the raw body, so register it before the JSON parser.
+  app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), stripeWebhook);
+
+  app.use(express.json({ limit: '1mb' }));
+  app.use(express.urlencoded({ extended: true }));
+
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 300,
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+  app.use('/api', limiter);
+
+  app.use('/api', routes);
+
+  app.use(notFound);
+  app.use(errorHandler);
+
+  return app;
+}
