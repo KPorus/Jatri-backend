@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../assets/jatri-icon.svg" alt="Jatri" width="72" />
+  <img src="./jatri-icon.svg" alt="Jatri" width="72" />
   <h1>Jatri — Server</h1>
   <p><em>Express · TypeScript · MongoDB · Socket.io · Stripe</em></p>
 </div>
@@ -7,8 +7,8 @@
 The Jatri backend: a typed Express (MVC) API plus a Socket.io gateway that powers real-time, conflict-free
 seat selection, a cron-based hold reconciler, and dynamic Stripe checkout.
 
-> Part of the **Jatri** monorepo — see the root [`README.md`](../README.md) and
-> [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md) for system diagrams.
+> Part of the **Jatri** monorepo — see the root [`README.md`](https://github.com/KPorus/Jatri-backend/tree/master/README.md) and
+> [`docs/ARCHITECTURE.md`](https://github.com/KPorus/Jatri-backend/tree/master/docs/ARCHITECTURE.md) for system diagrams.
 
 ---
 
@@ -65,7 +65,7 @@ Seat.findOneAndUpdate(
 The database guarantees a single winner under concurrency. The socket gateway then broadcasts
 `seat:locked` to the `trip:<id>` room; losers receive `seat:unavailable`. A `node-cron` job releases
 expired holds and emits `seat:released`, so inventory never deadlocks. See diagrams in
-[`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md).
+[`docs/ARCHITECTURE.md`](https://github.com/KPorus/Jatri-backend/tree/master/docs/ARCHITECTURE.md).
 
 ### Socket events
 
