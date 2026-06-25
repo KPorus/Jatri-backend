@@ -1,7 +1,7 @@
 {
-  "name": "ticketcutter-server",
+  "name": "jatri-server",
   "version": "1.0.0",
-  "description": "TicketCutter backend - Express + TS + MongoDB + Socket.io + Stripe",
+  "description": "Jatri backend - Express + TS + MongoDB + Socket.io + Stripe",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
